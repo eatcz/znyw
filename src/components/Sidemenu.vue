@@ -1,7 +1,7 @@
 <template>
     <div class="menu-wrapper">
         <div class="menu-item" v-for="(item, index) in menus" :key="item.id" @click="handleClick(item.id, index)"
-            :class="{ 'item-active': currentId === item.id }">
+            :class="{ 'item-active': (currentId === item.id && currentIndex == menuStore.currentShow) }">
             <img v-if="item.img" :src="getImageUrl(item.img)" alt="">
             <p class="title">{{ item.label }}</p>
         </div>
@@ -27,11 +27,13 @@ const { menus } = defineProps({
 })
 
 const currentId = ref<string | null>(null)
+const currentIndex = ref<null | number>(null)
 
 const handleClick = (id: string, index: number) => {
-    menus && menus.length == 3 ? index = index + 5 : index
-    menuStore.toggleSideMenu(index)
-    menuStore.setSideMenuShow(index)
+    currentIndex.value = (menus && menus.length == 3) ? index + 5 : index
+    console.log(currentIndex.value)
+    // menuStore.toggleSideMenu(currentIndex.value)
+    menuStore.setSideMenuShow(currentIndex.value)
     currentId.value = id
 
 }
