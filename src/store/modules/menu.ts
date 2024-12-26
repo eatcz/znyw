@@ -11,7 +11,7 @@ interface State {
 
 export const useMenuStore = defineStore("system", {
     state: (): State => ({
-        isShowLeftMenu: false, //是否显示左侧菜单
+        isShowLeftMenu: true, //是否显示左侧菜单
         isShowRightMenu: true, // 是否显示右侧菜单
         isShowVehicles: true, //是否显示人、车、物
         isShowEvaluation: true, //是否显示指标测评
@@ -41,12 +41,7 @@ export const useMenuStore = defineStore("system", {
             }
         },
         setSideMenuShow(index: number) {
-            if (this.currentShow === index) {
-                this.currentShow = null
-            } else {
-                this.currentShow = index
-            }
-            
+            this.currentShow === index ?  this.currentShow = null : this.currentShow = index
         }
     }
 });
