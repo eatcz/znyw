@@ -6,7 +6,7 @@
 
         <!-- 数量 -->
         <div class="item-wrap">
-            <div class="item" v-for="item in 5" :key="item">
+            <div class="item" v-for="item in 3" :key="item">
                 <div class="item-top"></div>
                 <div class="item-bottom"></div>
             </div>
@@ -14,7 +14,7 @@
 
         <!-- 车间 -->
         <div class="workspace">
-            <div class="work" v-for="item in 4" :key="item">
+            <div class="work" v-for="item in 2" :key="item">
                 <div class="title flex">
                     <div class="icon"></div>
                     <h3 class="workname">综合一车间</h3>
@@ -46,7 +46,8 @@
     top: 48px;
     left: 48px;
     width: 472px;
-    height: 493px;
+    // height: 493px;
+    max-height: 493px;
     margin-bottom: 24px;
     padding: 5px 10px 0;
     border: 1px solid #0E9CFF;

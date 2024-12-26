@@ -41,17 +41,17 @@ const l_menu = [
     },
     {
         id: nanoid(),
-        path: '/workprogress',
+        path: '/',
         label: '人力资源系统管理'
     },
     {
         id: nanoid(),
-        path: '/worktip',
+        path: '/',
         label: '物资设备'
     },
     {
         id: nanoid(),
-        path: '/worktip',
+        path: '/',
         label: '生产计划'
     },
 

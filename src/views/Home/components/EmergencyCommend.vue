@@ -1,6 +1,7 @@
 <template>
 
-    <Card :width="752" :height="249" :top="340" :left="48" :isTitle="true" color="#fff">
+    <!-- <Card :width="752" :height="249" :top="340" :left="48" :isTitle="true" color="#fff"> -->
+    <Card :width="752" :height="249" :top="550" :left="48" :isTitle="true" color="#fff">
         <template #title>
             <div class="des flex">
                 <h3 class="title">应急指挥</h3>

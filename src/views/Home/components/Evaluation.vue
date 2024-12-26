@@ -5,7 +5,8 @@
         </div>
     </div> -->
 
-    <Card :width="472" :height="196" :top="195" :left="48" :isTitle="true" color="#fff">
+    <!-- <Card :width="472" :height="196" :top="195" :left="48" :isTitle="true" color="#fff"> -->
+    <Card :width="472" :height="196" :top="340" :left="48" :isTitle="true" color="#fff">
         <template #title>
             <h3 class="title">指标测评</h3>
         </template>

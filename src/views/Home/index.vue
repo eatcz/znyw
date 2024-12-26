@@ -4,9 +4,14 @@
         <Sidemenu class="menu first" :class="{ 'active': menuStore.isShowLeftMenu }" :menus="l_menu" />
         <Sidemenu class="menu second" :class="{ 'active': menuStore.isShowRightMenu }" :menus="r_menu" />
 
-        <component :is="component"></component>
+        <Vehicles />
+        <Evaluation />
+        <EmergencyCommend />
+        <WorkProgress />
+        <!-- <component :is="component"></component> -->
         <!-- <component :is="Vehicles" v-show="menuStore.isShowVehicles"></component> -->
-        <!-- <component :is="Evaluation"></component> -->
+        <!-- <component :is="Evaluation" v-show="menuStore.isShowEvaluation"></component> -->
+        <!-- <component :is="EmergencyCommend" v-show="menuStore.isShowEmergencyCommend"></component> -->
         <!-- <Vehicles class="vehicles-wrapper" v-show="menuStore.isShowVehicles" /> -->
     </div>
 </template>
