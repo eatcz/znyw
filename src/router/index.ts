@@ -5,18 +5,29 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
         name: 'layout',
-        redirect:'',
+        redirect:'/group',
         component: () => import('../layout/index.vue'),
         children: [
-            {
-                path: '',
-                name:'home',
-                component:() =>import('../views/Home/index.vue')
-            },
+            // {
+            //     path: '',
+            //     name:'home',
+            //     component:() =>import('../views/Home/index.vue')
+            // },
             {
                 path: '/system',
                 name:'system',
-                component:() =>import('../views/System/index.vue')
+                component: () => import('../views/System/index.vue'),
+                children: [
+                    {
+                        path: 'user',
+                        name: 'user',
+                        component:() => import('../views/User/index.vue')
+                    }
+                ]
+            }, {
+                path: '/group',
+                name: 'group',
+                component:() =>import('../views/Group/index.vue')
             }
         ]
     }

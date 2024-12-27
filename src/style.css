@@ -2,3 +2,11 @@ a{
     text-decoration: none;
     color: #fff;
 }
+
+:root{
+    --el-tree-node-hover-bg-color:transparent;
+}
+
+.el-tree {
+    --el-tree-node-hover-bg-color:transparent !important;
+}

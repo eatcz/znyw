@@ -5,6 +5,7 @@ import './styles/index.scss'
 import 'element-plus/dist/index.css'
 import ElementPlus from 'element-plus'
 import BaiduMap from 'vue-baidu-map-3x'
+import Card from './components/Card.vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -23,5 +24,6 @@ app.use(ElementPlus)
 app.use(BaiduMap, {
     ak: 'SiJ79eAWnSFb4hU4hIZ1ECKCFjpSkkG8',
 })
+app.component('Card' , Card)
 
 app.mount('#app')
