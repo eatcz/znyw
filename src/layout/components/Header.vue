@@ -8,15 +8,15 @@
                 </ul>
                 <div class="header-title flex">
                     <div class="image flex">
-                        <img src="../../../assets/imgs/h-1.svg" alt="">
-                        <img src="../../../assets/imgs/h-2.svg" alt="">
+                        <img src="../../assets/imgs/h-1.svg" alt="">
+                        <img src="../../assets/imgs/h-2.svg" alt="">
                     </div>
 
                     <h3 class="title">智能运维数字化管理平台</h3>
 
                     <div class="image flex">
-                        <img src="../../../assets/imgs/h-3.svg" alt="">
-                        <img src="../../../assets/imgs/h-1.svg" alt="">
+                        <img src="../../assets/imgs/h-3.svg" alt="">
+                        <img src="../../assets/imgs/h-1.svg" alt="">
                     </div>
                 </div>
                 <ul class="menus flex">

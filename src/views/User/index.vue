@@ -47,6 +47,7 @@
                 </el-table-column>
                 <el-table-column align="center" label="操作">
                     <template #default="scope">
+                        {{ scope }}
                         <el-link :underline="false" type="primary">查看详情</el-link>
                     </template>
                 </el-table-column>
@@ -59,7 +60,7 @@
 </template>
 
 <script setup lang='ts'>
-import { ref, reactive } from 'vue'
+// import { ref, reactive } from 'vue'
 import { nanoid } from 'nanoid'
 import { getImageUrl } from '../../utils'
 

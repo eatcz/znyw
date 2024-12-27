@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang='ts'>
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 import Card from '../../../components/Card.vue';
 import { nanoid } from 'nanoid';
 

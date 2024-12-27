@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang='ts'>
-import { ref, reactive } from 'vue'
+// import { ref, reactive } from 'vue'
 import BaseInfo from './components/BaseInfo.vue';
 import Situation from './components/Situation.vue';
 import InformationSummary from './components/InformationSummary.vue';
@@ -22,8 +22,8 @@ import PersonalBaseInfo from './components/PersonalBaseInfo.vue';
 import ProductInfo from './components/ProductInfo.vue';
 import SpecialCertificate from './components/SpecialCertificate.vue';
 import ImportantInfo from './components/ImportantInfo.vue';
-import Task from './components/Task.vue';
-import BottomTask from './components/BottomTask.vue';
+// import Task from './components/Task.vue';
+// import BottomTask from './components/BottomTask.vue';
 import Center from './components/Center.vue';
 </script>
 

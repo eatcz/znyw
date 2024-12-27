@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang='ts'>
-import { ref } from 'vue';
+// import { ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 const { path } = useRoute()
 const router = useRouter()
