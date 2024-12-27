@@ -28,9 +28,14 @@ const routes: Array<RouteRecordRaw> = [
                 path: '/group',
                 name: 'group',
                 component:() =>import('../views/Group/index.vue')
-            }
+            },
+        
         ]
-    }
+    },
+        {
+                path: '/map',
+                component:() =>import('../views/Map/index.vue')
+            }
  
 ]
 
