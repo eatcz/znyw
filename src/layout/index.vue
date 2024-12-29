@@ -1,9 +1,13 @@
 <template>
+    <!-- <div class="layout-container"> -->
     <baidu-map class="bm-view" :zoom="12" :mapStyle="mapStyle"
         :center="{ lat: 24.93685520002406, lng: 102.72960724248914 }" :scroll-wheel-zoom="true">
     </baidu-map>
     <Header />
-    <RouterView />
+    <div class="content">
+        <RouterView />
+    </div>
+    <!-- </div> -->
 </template>
 
 <script setup lang='ts'>
@@ -13,6 +17,11 @@ import { mapStyle } from '../config/map_style';
 </script>
 
 <style scoped lang='scss'>
+.layout-container {
+    height: 100%;
+    // background-color: #fff;
+}
+
 .bm-view {
     position: absolute;
     top: 0;
@@ -20,5 +29,9 @@ import { mapStyle } from '../config/map_style';
     right: 0;
     bottom: 0;
     z-index: -1;
+}
+
+.content {
+    height: 100%;
 }
 </style>
