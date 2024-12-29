@@ -1,0 +1,6 @@
+<svg data-v-d2e47025="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" >
+  <!-- 外圆（白色背景） -->
+  <circle cx="512" cy="512" r="256" fill="white" stroke="currentColor" stroke-width="10" />
+  <!-- 内圆（透明空心） -->
+  <circle cx="512" cy="512" r="128" fill="blue" stroke="currentColor" stroke-width="10" />
+</svg>

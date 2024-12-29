@@ -1,6 +1,6 @@
 <template>
-    <baidu-map class="bm-view" :zoom="12" :mapStyle="mapStyle" :center="{ lng: 102.10, lat: 24.23 }"
-        :scroll-wheel-zoom="true">
+    <baidu-map class="bm-view" :zoom="12" :mapStyle="mapStyle"
+        :center="{ lat: 24.93685520002406, lng: 102.72960724248914 }" :scroll-wheel-zoom="true">
     </baidu-map>
     <Header />
     <RouterView />
