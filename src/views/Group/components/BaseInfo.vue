@@ -1,6 +1,6 @@
 <template>
     <!-- <Card :width="472" :height="300" :top="58" :is-title="true"> -->
-    <Card :width="472" :height="300" :is-title="true">
+    <Card :width="472" :height="300" :left="48" :is-title="true">
         <template #title>
             <h3>项目基本信息</h3>
         </template>

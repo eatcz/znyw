@@ -1,5 +1,5 @@
 <template>
-    <Card :width="472" :height="300" :right="0" isTitle>
+    <Card :width="472" :height="300" :right="48" isTitle>
         <template #title>
             <h3>生产信息汇总</h3>
         </template>

@@ -10,8 +10,24 @@ a{
 
 :root{
     --el-tree-node-hover-bg-color:transparent;
+    --el-table-bg-color:transparent;
 }
 
 .el-tree {
     --el-tree-node-hover-bg-color:transparent !important;
+}
+
+.el-table{
+     --el-table-bg-color:transparent !important;
+     --el-table-row-hover-bg-color:#071c53 !important;
+}
+
+.el-dialog{
+opacity: 1;
+box-sizing: border-box;
+border: 1px solid #0E9CFF;
+
+box-shadow: inset 0px 0px 87px 0px rgba(1, 194, 255, 0.4);
+    /* --el-dialog-bg-color:#2F6DFF !important; */
+    --el-dialog-bg-color:rgba(0,0,0,.5) !important;
 }

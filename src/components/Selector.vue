@@ -1,5 +1,5 @@
 <template>
-    <el-select v-model="project" placeholder="请选择项目" size="large" style="width: 240px;margin-right: 4px;">
+    <el-select v-model="project" placeholder="请选择项目" size="large" style="width: 226px;margin-right: 4px;">
         <el-option v-for="item in projectList" :key="item.id" :label="item.label" :value="item.id" />
     </el-select>
 </template>

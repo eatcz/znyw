@@ -1,12 +1,19 @@
 import { defineStore } from "pinia";
 
-interface State {
+export interface State {
     isShowLeftMenu: boolean;
     isShowRightMenu: boolean;
     isShowVehicles: boolean;
     isShowEvaluation: boolean;
     isShowEmergencyCommend: boolean;
-    currentShow: number | null
+    isShowBaseInfo: boolean, //是否显示项目基本信息
+    isShowSituation: boolean, //是否显示项目情况
+    isShowInformationSummary: boolean, //是否显示专业信息汇总
+    isShowPersonalBaseInfo: boolean,//是否显示人员基础信息
+    isShowProductInfo: boolean, //是否显示生产信息汇总
+    isShowSpecialCertificate: boolean, //是否显示特种证件统计
+    isShowImportantInfo: boolean, //是否显示项目重要信息
+    currentShow:number | null | boolean
 }
 
 export const useMenuStore = defineStore("system", {
@@ -16,7 +23,14 @@ export const useMenuStore = defineStore("system", {
         isShowVehicles: true, //是否显示人、车、物
         isShowEvaluation: true, //是否显示指标测评
         isShowEmergencyCommend: true, //是否显示指标测评
-        currentShow:null, //当前显示的菜单
+        isShowBaseInfo: true, //是否显示项目基本信息
+        isShowSituation: true, //是否显示项目情况
+        isShowInformationSummary: true, //是否显示专业信息汇总
+        isShowPersonalBaseInfo: true,//是否显示人员基础信息
+        isShowProductInfo: true, //是否显示生产信息汇总
+        isShowSpecialCertificate: true, //是否显示特种证件统计
+        isShowImportantInfo: true, //是否显示项目重要信息
+        currentShow: null, //当前显示的菜单
     }),
 
     actions: {
@@ -41,7 +55,14 @@ export const useMenuStore = defineStore("system", {
             }
         },
         setSideMenuShow(index: number) {
-            this.currentShow === index ?  this.currentShow = null : this.currentShow = index
-        }
+            this.currentShow === index ? this.currentShow = null : this.currentShow = index
+        },
+sidemenuShow(meta: keyof State) {
+    const state = this as State; // 显式指定 this 的类型
+    state[meta] = !state[meta]
+}
+
+
+
     }
 });

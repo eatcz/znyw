@@ -28,6 +28,7 @@ const router = useRouter()
 const currentIndex = ref<null | number>(null)
 
 const handleClick = (index: number, path: string) => {
+    console.log(path)
     currentIndex.value = index
     router.push(path)
 

@@ -1,6 +1,6 @@
 <template>
     <!-- <Card :width="472" :height="250" :top="370" :right="0" isTitle> -->
-    <Card :width="472" :height="250" :top="320" :right="0" isTitle>
+    <Card :width="472" :height="250" :top="320" :right="48" isTitle>
         <template #title>
             <h3>特种证件统计</h3>
         </template>

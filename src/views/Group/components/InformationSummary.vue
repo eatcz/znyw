@@ -2,7 +2,7 @@
     <!-- <div class="information-summary">
 
     </div> -->
-    <Card :width="472" :height="241" :top="518" isTitle>
+    <Card :width="472" :height="241" :left="48" :top="518" isTitle>
         <template #title>
             <h3>专业信息汇总</h3>
         </template>

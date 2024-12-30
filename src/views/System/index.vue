@@ -3,7 +3,7 @@
         <Sidebar />
 
         <div class="list-wrapper">
-
+            <RouterView />
         </div>
     </div>
 </template>
@@ -33,7 +33,7 @@ import Sidebar from './components/Sidebar.vue';
 }
 
 .sidebar {
-    width: 450px;
+    // width: 450px;
     margin-right: 13px;
     padding: 13px 9px 0;
 }
@@ -41,7 +41,9 @@ import Sidebar from './components/Sidebar.vue';
 .list-wrapper {
     position: relative;
     flex: 1;
+    width: 100%;
     padding: 12px 12px 0 10px;
+    overflow-x: auto;
 
     .title-wrapper {
         display: flex;

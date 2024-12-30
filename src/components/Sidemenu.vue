@@ -1,6 +1,6 @@
 <template>
     <div class="menu-wrapper">
-        <div class="menu-item" v-for="(item, index) in menus" :key="item.id" @click="handleClick(item.id, index)"
+        <div class="menu-item" v-for="(item, index) in menus" :key="item.id" @click="handleClick(item.id, index, item)"
             :class="{ 'item-active': (currentId === item.id && currentIndex == menuStore.currentShow) }">
             <img v-if="item.img" :src="getImageUrl(item.img)" alt="">
             <p class="title">{{ item.label }}</p>
@@ -12,12 +12,14 @@
 import { ref } from 'vue';
 import { useMenuStore } from '../store/modules/menu';
 import { getImageUrl } from '../utils';
+import { type State } from '../store/modules/menu';
 const menuStore = useMenuStore()
 
 interface MenuList {
     id: string
     label: string
     img?: string
+    meta?: string
 }
 
 
@@ -29,11 +31,13 @@ const { menus } = defineProps({
 const currentId = ref<string | null>(null)
 const currentIndex = ref<number | null>(null)
 
-const handleClick = (id: string, index: number) => {
+const handleClick = (id: string, index: number, item: MenuList) => {
+    console.log(item)
     currentIndex.value = (menus && menus.length == 3) ? index + 5 : index
     // menuStore.toggleSideMenu(index)
     menuStore.setSideMenuShow(currentIndex.value as number)
     currentId.value = id
+    menuStore.sidemenuShow(item.meta as keyof State)
 
 }
 

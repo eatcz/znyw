@@ -32,23 +32,25 @@
                 </el-table-column>
                 <el-table-column prop="department" align="center" label="部门">
                     <template #default="scope">
-                        {{ scope.row.department }}
+                        <p> {{ scope.row.department }}</p>
                     </template>
                 </el-table-column>
                 <el-table-column prop="status" align="center" label="状态">
                     <template #default="scope">
-                        {{ scope.row.status }}
+                        <p> {{ scope.row.status }}</p>
                     </template>
                 </el-table-column>
                 <el-table-column prop="certificate" align="center" label="证书">
                     <template #default="scope">
-                        {{ scope.row.certificate }}
+                        <p> {{ scope.row.certificate }}</p>
                     </template>
                 </el-table-column>
                 <el-table-column align="center" label="操作">
-                    <template #default="scope">
-                        {{ scope }}
-                        <el-link :underline="false" type="primary">查看详情</el-link>
+                    <template #default>
+                        <el-link :underline="false" type="primary" @click="handleShow">查看详情</el-link>
+                        <el-link :underline="false" type="primary" style="margin: 0 15px;"
+                            @click="handleUpdate">修改</el-link>
+                        <el-link :underline="false" type="primary" @click="handleDelete">删除</el-link>
                     </template>
                 </el-table-column>
             </el-table>
@@ -57,17 +59,117 @@
             </div>
         </div>
     </div>
+
+    <!-- <el-dialog v-model="dialogVisible" title="人员信息" width="766" :before-close="handleClose">
+        <div class="content-info">
+            <div class="info">
+                <div class="item">
+                    <p class="title">姓名: </p>
+                    <span>张XX</span>
+                </div>
+                <div class="item">
+                    <p class="title">联系方式: </p>
+                    <span>张XX</span>
+                </div>
+                <div class="item">
+                    <p class="title">在职状态: </p>
+                    <span class="status">职工</span>
+                </div>
+                <div class="item">
+                    <p class="title">职级:</p>
+                    <el-tag type="danger">高级</el-tag>
+                </div>
+                <div class="item">
+                    <p class="title">部门: </p>
+                    <span>张XX</span>
+                </div>
+                <div class="item">
+                    <p class="title">岗位名称: </p>
+                    <span>张XX</span>
+                </div>
+                <div class="item">
+                    <p class="title">XX调用: </p>
+                    <span>张XX</span>
+                </div>
+                <div class="item">
+                    <p class="title">XX到期: </p>
+                    <span>张XX</span>
+                </div>
+                <div class="item">
+                    <p class="title">证书: </p>
+                    <el-tag type="danger">高血压</el-tag>
+                </div>
+            </div>
+            <div class="avator">
+
+            </div>
+        </div>
+        <template #footer>
+            <div class="dialog-footer">
+                <el-button @click="dialogVisible = false">关闭</el-button>
+            </div>
+        </template>
+    </el-dialog> -->
+
+    <Dialog :width="766" :height="592" v-show="dialogVisible">
+        <template #title>
+            <h3>人员信息</h3>
+        </template>
+        <template #content>
+            <Information />
+        </template>
+
+        <template #footer>
+            <div class="btn" @click="handleClose">关闭</div>
+        </template>
+    </Dialog>
+
+    <Dialog :width="546" :height="592" v-show="updateDialogVisible" @close="() => updateDialogVisible = false">
+        <template #title>
+            <h3>新增人员</h3>
+        </template>
+
+        <template #content>
+            <Form />
+        </template>
+    </Dialog>
 </template>
 
 <script setup lang='ts'>
 // import { ref, reactive } from 'vue'
 import { nanoid } from 'nanoid'
 import { getImageUrl } from '../../utils'
+import { getUser } from '../../api/user'
+import { onMounted, ref } from 'vue'
+import Dialog from '../../components/Dialog.vue'
+import Form from './components/Form.vue'
+import { ElMessage, ElMessageBox, } from 'element-plus'
+import Information from './components/Information.vue'
+
+onMounted(() => {
+    getUserList()
+})
+
+// 查看详情弹窗
+const dialogVisible = ref(false)
+
+// 修改弹窗
+const updateDialogVisible = ref(false)
+
+
+
+// 用户列表
+const userList = ref([])
+
+const getUserList = async () => {
+    const { data } = await getUser()
+    console.log(data)
+}
 
 const fnList = [
     {
         id: nanoid(),
-        label: '批量XXX调用',
+        label: '新增',
         icon: 'users'
     },
     {
@@ -90,6 +192,36 @@ const tableData = [
     },
 
 ]
+
+// 查看详情
+const handleShow = () => {
+    dialogVisible.value = true
+}
+
+// 修改
+const handleUpdate = () => {
+    updateDialogVisible.value = true
+    console.log(`修改`)
+}
+
+// 删除
+const handleDelete = () => {
+    ElMessageBox.confirm('确定要删除吗?', '提示:', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+    }).then(() => {
+        ElMessage({
+            type: 'success',
+            message: `删除成功!`
+        })
+    })
+}
+
+// 关闭弹窗
+const handleClose = () => {
+    dialogVisible.value = false
+}
 
 const table_row_style = {
     backgroundColor: '#071c53',
@@ -150,6 +282,21 @@ const table_header_row_style = {
 
 }
 
+
+.btn {
+    cursor: pointer;
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background: rgba(47, 109, 255, 0.2);
+    border-radius: 4px;
+    opacity: 1;
+    box-sizing: border-box;
+    border: 1px solid #2F6DFF;
+    color: #fff;
+}
+
 .table-row-bg {
     background-color: #000;
 }
@@ -190,5 +337,17 @@ const table_header_row_style = {
 :deep(.btn-next) {
     color: #fff;
     background: rgba(22, 92, 255, 0.4) !important;
+}
+
+:deep(.el-dialog) {
+    /* background: rgba(47, 109, 255, 0.2) !important; */
+    color: #fff;
+    box-sizing: border-box;
+    border: 1px solid #2F6DFF;
+    opacity: 1 !important;
+}
+
+:deep(.el-message-box__title) {
+    text-align: center !important;
 }
 </style>

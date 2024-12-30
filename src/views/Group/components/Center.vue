@@ -19,7 +19,7 @@ import BottomTask from './BottomTask.vue';
     left: 472px;
     display: flex;
     flex-direction: column;
-    width: calc(100% - 472px * 2 - 18px * 2);
-    margin-left: 17px;
+    width: calc(100% - 472px * 2 - 18px * 2 - 48px * 2);
+    margin-left: calc(17px + 48px);
 }
 </style>

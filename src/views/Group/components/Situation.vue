@@ -1,6 +1,6 @@
 <template>
     <!-- <Card :width="472" :height="178" :top="382" :isTitle="true" color="#fff"> -->
-    <Card :width="472" :height="178" :top="320" :isTitle="true" color="#fff">
+    <Card :width="472" :height="178" :top="320" :left="48" :isTitle="true" color="#fff">
         <template #title>
             <h3 class="title">指标测评</h3>
         </template>

@@ -6,15 +6,27 @@
             <bm-marker v-for="(station, index) in subwayStation" :key="index"
                 :position="{ lng: station.lng, lat: station.lat }"
                 :icon="{ url: stationIcon, size: { width: 20, height: 20 } }" :title="station.name"
-                @click="onClick(station.name)" @mouseover="mouseover(station.name)"></bm-marker>
+                @click="onClick(station)" @mouseover="mouseover(station.name)"></bm-marker>
+
+            <!-- 点击站点显示信息 -->
+            <bm-info-window :position="{ lat: currentPosition.lat, lng: currentPosition.lng }"
+                :title="currentPosition.name" :show="show" @close="infoWinClose" @open="infoWinOpen">
+                <p>{{ content }}</p>
+            </bm-info-window>
         </baidu-map>
     </div>
 </template>
 
 <script setup lang='ts'>
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { mapStyle } from '../../../config/map_style';
 import stationIcon from '../../../assets/icons/circle.svg'
+
+interface Station {
+    lat: number
+    lng: number
+    name: string
+}
 
 // 站点列表
 const subwayStation = ref([
@@ -130,22 +142,48 @@ const subwayStation = ref([
     }
 ])
 
-// 站点坐标
+// 站点坐标列表
 const paths = subwayStation.value.map(station => ({ lng: station.lng, lat: station.lat }))
 
+// 当前站点坐标
+const currentPosition = reactive<Station>({
+    lat: 0,
+    lng: 0,
+    name: ''
+})
+
 // 鼠标点击站点
-const onClick = (title: string) => {
-    console.log(`click ${title}`)
+const onClick = (station: Station) => {
+    infoWinOpen()
+    currentPosition.lat = station.lat
+    currentPosition.lng = station.lng
+    currentPosition.name = station.name
 }
 
 const mouseover = (title: string) => {
-    console.log(`mouseover ${title}`)
+    // console.log(`mouseover ${title}`)
+    return
 }
+
+const show = ref(false)
+
+// infoWindow content
+const content = ref('hhhhh')
+
+const infoWinClose = () => {
+    show.value = false
+}
+
+const infoWinOpen = () => {
+    show.value = true
+}
+
 </script>
 
 <style scoped lang='scss'>
 .map-container {
-    height: 785px;
+    // height: 785px;
+    height: 740px;
     margin-bottom: 18px;
     background: rgba(22, 92, 255, 0.2);
     // border: 1px solid #0E9CFF;

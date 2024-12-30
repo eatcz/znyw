@@ -1,5 +1,25 @@
-# Vue 3 + TypeScript + Vite
+计划:
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+1.完善首页模块，修改地图线路标点和连线
+2.开发系统管理模块
+3.开发用户管理模块
+4.开发部门管理模块
+5.对接用户、部门管理模块接口
+6.开发登录、注册、修改模块
+8.开发岗位管理模块
+8.开发日志管理模块
+9.开发菜单管理模块
+10.开发角色管理模块
+11.开发工器具管理模块
+12.开发备品备件管理模块
+13.开发供应商管理模块
+14.开发计划管理模块
+15.开发任务管理模块
+16.开发交底管理模块
+17.开发检查问题库模块
+18.开发故障管理模块
+19.开发预警提醒模块
+20.开发应急预案模块
+21.开发应急处置模块
+22.开发资料管理模块
+23.开发作业记录模块

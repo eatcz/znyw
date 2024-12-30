@@ -12,7 +12,7 @@
                         <img src="../../assets/imgs/h-2.svg" alt="">
                     </div>
 
-                    <h3 class="title">智能运维数字化管理平台</h3>
+                    <h3 class="title" @click="toHome" style="cursor: pointer;">智能运维数字化管理平台</h3>
 
                     <div class="image flex">
                         <img src="../../assets/imgs/h-3.svg" alt="">
@@ -31,7 +31,10 @@
 
 <script setup lang='ts'>
 import { nanoid } from 'nanoid';
+import { useRouter } from 'vue-router';
 import HeaderMenu from './HeaderMenu.vue';
+
+const router = useRouter()
 
 const l_menu = [
     {
@@ -41,17 +44,17 @@ const l_menu = [
     },
     {
         id: nanoid(),
-        path: '/',
+        path: '/humanresource',
         label: '人力资源系统管理'
     },
     {
         id: nanoid(),
-        path: '/',
+        path: '/equipment',
         label: '物资设备'
     },
     {
         id: nanoid(),
-        path: '/',
+        path: '/productplan',
         label: '生产计划'
     },
 
@@ -61,26 +64,30 @@ const l_menu = [
 const r_menu = [
     {
         id: nanoid(),
-        path: '/trackmonitor',
+        path: '/safemass',
         label: '安全质量'
     },
     {
         id: nanoid(),
-        path: '/trackmonitor',
+        path: '/breakdown',
         label: '故障管理'
     },
     {
         id: nanoid(),
-        path: '/trackmonitor',
+        path: '/emergency',
         label: '应急管理'
     },
     {
         id: nanoid(),
-        path: '/trackmonitor',
+        path: '/document',
         label: '资料管理'
     },
 
 ]
+
+const toHome = () => {
+    router.push('/group')
+}
 
 </script>
 
