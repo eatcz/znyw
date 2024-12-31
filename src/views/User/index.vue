@@ -124,7 +124,7 @@
         </template>
     </Dialog>
 
-    <Dialog :width="546" :height="592" v-show="updateDialogVisible" @close="() => updateDialogVisible = false">
+    <Dialog :width="546" v-show="updateDialogVisible">
         <template #title>
             <h3>新增人员</h3>
         </template>
@@ -136,15 +136,19 @@
 </template>
 
 <script setup lang='ts'>
-// import { ref, reactive } from 'vue'
+import { onMounted, provide, ref } from 'vue'
 import { nanoid } from 'nanoid'
 import { getImageUrl } from '../../utils'
 import { getUser } from '../../api/user'
-import { onMounted, ref } from 'vue'
 import Dialog from '../../components/Dialog.vue'
 import Form from './components/Form.vue'
 import { ElMessage, ElMessageBox, } from 'element-plus'
 import Information from './components/Information.vue'
+
+provide('updateDialog', {
+    handleClose: () => updateDialogVisible.value = false,
+    handleSubmit: () => console.log('submit')
+})
 
 onMounted(() => {
     getUserList()

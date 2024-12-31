@@ -1,6 +1,6 @@
 <template>
     <div class="sidebar">
-        <el-input placeholder="请输入部门名称"></el-input>
+        <el-input placeholder="请输入部门名称" v-model="keyword"></el-input>
         <el-tree style="max-width: 600px" :data="data" :props="defaultProps" @node-click="handleNodeClick" />
     </div>
 </template>
@@ -26,6 +26,9 @@ interface Tree {
     children?: Tree[];
     path?: string;
 }
+
+// keyword
+const keyword = ref('')
 
 const handleNodeClick = (data: Tree) => {
     if (data.path) {
@@ -87,6 +90,7 @@ const defaultProps = {
 
 :deep(.el-input__inner) {
     height: 32px;
+    color: #fff;
 }
 
 :deep(.el-icon svg) {

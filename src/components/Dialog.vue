@@ -18,7 +18,7 @@
 
 <script setup lang='ts'>
 
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 
 const { width, height, color, top, left, right } = defineProps({
     width: Number,
@@ -77,6 +77,7 @@ const style = computed(() => ({
     }
 
     .content {
+        min-height: 592px;
         color: #fff;
         padding: 10px 40px 22px;
     }

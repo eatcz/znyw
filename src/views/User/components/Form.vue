@@ -1,9 +1,49 @@
 <template>
     <div class="form-wrapper">
-        <el-form ref="ruleFormRef" style="max-width: 600px" :model="ruleForm" status-icon label-width="auto"
+        <el-form ref="ruleFormRef" style="max-width: 600px" :model="form" status-icon label-width="auto"
             class="demo-ruleForm">
-            <el-form-item v-for="(item, index) in formItems" :key="index" :label="item.label" :prop="item.prop">
-                <!-- <el-input v-model="ruleForm[item.prop]" type="text" autocomplete="off" /> -->
+            <el-form-item label="姓名" prop="name">
+                <el-input v-model="form.name" type="text" autocomplete="off" placeholder="请输入姓名" />
+            </el-form-item>
+            <el-form-item label="身份证号" prop="idcard">
+                <el-input v-model="form.idcard" type="text" autocomplete="off" placeholder="请输入身份证号" />
+            </el-form-item>
+            <el-form-item label="性别" prop="gender">
+                <el-select placeholder="请选择" v-model="form.gender">
+                    <el-option :value="1" />
+                </el-select>
+            </el-form-item>
+            <el-form-item label="出生日期" prop="birthday">
+                <el-date-picker v-model="form.birthday" type="dates" placeholder="请选择出生日期" />
+            </el-form-item>
+            <el-form-item label="职位" prop="post">
+                <el-select placeholder="请选择" v-model="form.post">
+                    <el-option :value="1" />
+                </el-select>
+            </el-form-item>
+            <el-form-item label="部门" prop="department">
+                <el-select placeholder="请选择" v-model="form.department">
+                    <el-option :value="1" />
+                </el-select>
+            </el-form-item>
+            <el-form-item label="联系方式" prop="phone">
+                <el-input v-model="form.phone" type="text" autocomplete="off" placeholder="请输入姓名" />
+            </el-form-item>
+            <el-form-item label="教育背景" prop="education">
+                <el-select placeholder="请选择" v-model="form.education">
+                    <el-option :value="1" />
+                </el-select>
+            </el-form-item>
+            <el-form-item label="工作经历" prop="experience">
+                <el-input v-model="form.experience" type="text" autocomplete="off" placeholder="请输入姓名" />
+            </el-form-item>
+            <el-form-item label="在职状态" prop="status">
+                <el-select placeholder="请选择" v-model="form.status">
+                    <el-option :value="1" />
+                </el-select>
+            </el-form-item>
+            <el-form-item label="员工编号" prop="number">
+                <el-input v-model="form.number" type="text" autocomplete="off" placeholder="请输入姓名" />
             </el-form-item>
 
             <el-form-item>
@@ -11,7 +51,7 @@
                     <el-button type="primary" @click="submitForm(ruleFormRef)">
                         确认
                     </el-button>
-                    <el-button @click="resetForm(ruleFormRef)">取消</el-button>
+                    <el-button @click="handleClose">取消</el-button>
                 </div>
             </el-form-item>
         </el-form>
@@ -19,79 +59,93 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, inject } from 'vue'
 import type { FormInstance } from 'element-plus'
+
+interface UpdateDialog {
+    handleClose: () => boolean
+    handleSubmit: () => string
+}
+
+const updateDialog = inject('updateDialog') as UpdateDialog
+
 
 interface RuleForm {
     name: string
     idcard: string
-    age: string
+    gender: string
     birthday: string
     post: string
     department: string
     phone: string
     education: string
+    experience: string
+    status: string
+    number: string | number
 }
-
-const props = defineProps({
-    close: Function
-})
-
-console.log(props)
 
 const ruleFormRef = ref<FormInstance>()
 
-const ruleForm = reactive<RuleForm>({
+const form = reactive<RuleForm>({
     name: '',
     idcard: '',
-    age: '',
+    gender: '',
     birthday: '',
     post: '',
     department: '',
     phone: '',
-    education: ''
+    education: '',
+    experience: '',
+    status: '',
+    number: ''
 })
 
-const formItems = ref([
-    {
-        label: '姓名',
-        prop: 'name'
-    },
-    {
-        label: '身份证号',
-        prop: 'idcard'
-    },
-    {
-        label: '性别',
-        prop: 'age'
-    },
-    {
-        label: '出生日期',
-        prop: 'birthday'
-    },
-    {
-        label: '职位',
-        prop: 'post'
-    },
-    {
-        label: '部门',
-        prop: 'department'
-    },
-    {
-        label: '联系方式',
-        prop: 'phone'
-    },
-    {
-        label: '教育背景',
-        prop: 'education'
-    },
-])
+// const formItems = ref([
+//     {
+//         label: '姓名',
+//         prop: 'name'
+//     },
+//     {
+//         label: '身份证号',
+//         prop: 'idcard'
+//     },
+//     {
+//         label: '性别',
+//         prop: 'age'
+//     },
+//     {
+//         label: '出生日期',
+//         prop: 'birthday'
+//     },
+//     {
+//         label: '职位',
+//         prop: 'post'
+//     },
+//     {
+//         label: '部门',
+//         prop: 'department'
+//     },
+//     {
+//         label: '联系方式',
+//         prop: 'phone'
+//     },
+//     {
+//         label: '教育背景',
+//         prop: 'education'
+//     },
+// ])
 
+// 关闭弹窗
+const handleClose = () => {
+    updateDialog.handleClose()
+}
 
 const submitForm = (formEl: FormInstance | undefined) => {
     if (!formEl) return
     formEl.validate((valid) => {
         if (valid) {
+            updateDialog.handleSubmit()
+            handleClose()
             console.log('submit!')
         } else {
             console.log('error submit!')
@@ -102,7 +156,6 @@ const submitForm = (formEl: FormInstance | undefined) => {
 const resetForm = (formEl: FormInstance | undefined) => {
     if (!formEl) return
     formEl.resetFields()
-    // props.close()
 }
 </script>
 
@@ -138,5 +191,16 @@ const resetForm = (formEl: FormInstance | undefined) => {
     background: rgba(47, 109, 255, 0.2);
     border: none;
     color: #fff;
+}
+
+:deep(.el-select__wrapper) {
+    background-color: #000 !important;
+    box-shadow: none !important;
+    border: 1px solid #0256FF;
+    color: #fff;
+}
+
+:deep(.el-date-editor) {
+    width: 100% !important;
 }
 </style>
