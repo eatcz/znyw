@@ -3,12 +3,14 @@
         <Navbar />
         <Sidemenu class="menu first" :class="{ 'active': menuStore.isShowLeftMenu }" :menus="l_menu" />
         <Sidemenu class="menu second" :class="{ 'active': menuStore.isShowRightMenu }" :menus="r_menu" />
-        <BaseInfo v-show="menuStore.isShowBaseInfo" />
+        <BaseInfo v-if="menuStore.isShowBaseInfo" />
         <Situation v-show="menuStore.isShowSituation" />
         <InformationSummary v-show="menuStore.isShowInformationSummary" />
         <PersonalBaseInfo v-show="menuStore.isShowPersonalBaseInfo" />
         <ProductInfo v-show="menuStore.isShowProductInfo" />
-        <Center />
+        <!-- <Center /> -->
+        <Task />
+        <BottomTask />
         <SpecialCertificate v-show="menuStore.isShowSpecialCertificate" />
         <ImportantInfo v-show="menuStore.isShowImportantInfo" />
     </div>
@@ -27,6 +29,8 @@ import ImportantInfo from './components/ImportantInfo.vue';
 import Center from './components/Center.vue';
 import { nanoid } from 'nanoid';
 import { useMenuStore } from '../../store/modules/menu';
+import Task from './components/Task.vue';
+import BottomTask from './components/BottomTask.vue';
 
 const menuStore = useMenuStore()
 

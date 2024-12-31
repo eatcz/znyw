@@ -65,56 +65,6 @@
         </div>
     </div>
 
-    <!-- <el-dialog v-model="dialogVisible" title="人员信息" width="766" :before-close="handleClose">
-        <div class="content-info">
-            <div class="info">
-                <div class="item">
-                    <p class="title">姓名: </p>
-                    <span>张XX</span>
-                </div>
-                <div class="item">
-                    <p class="title">联系方式: </p>
-                    <span>张XX</span>
-                </div>
-                <div class="item">
-                    <p class="title">在职状态: </p>
-                    <span class="status">职工</span>
-                </div>
-                <div class="item">
-                    <p class="title">职级:</p>
-                    <el-tag type="danger">高级</el-tag>
-                </div>
-                <div class="item">
-                    <p class="title">部门: </p>
-                    <span>张XX</span>
-                </div>
-                <div class="item">
-                    <p class="title">岗位名称: </p>
-                    <span>张XX</span>
-                </div>
-                <div class="item">
-                    <p class="title">XX调用: </p>
-                    <span>张XX</span>
-                </div>
-                <div class="item">
-                    <p class="title">XX到期: </p>
-                    <span>张XX</span>
-                </div>
-                <div class="item">
-                    <p class="title">证书: </p>
-                    <el-tag type="danger">高血压</el-tag>
-                </div>
-            </div>
-            <div class="avator">
-
-            </div>
-        </div>
-        <template #footer>
-            <div class="dialog-footer">
-                <el-button @click="dialogVisible = false">关闭</el-button>
-            </div>
-        </template>
-    </el-dialog> -->
 
     <Dialog :width="766" :height="592" v-show="detaildialogVisible" title="人员信息">
         <!-- <template #title>

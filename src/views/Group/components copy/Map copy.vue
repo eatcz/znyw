@@ -1,39 +1,20 @@
 <template>
-    <!-- <div class="layout-container"> -->
-    <baidu-map class="bm-view" :zoom="12" :mapStyle="mapStyle"
-        :center="{ lat: 24.93685520002406, lng: 102.72960724248914 }" :scroll-wheel-zoom="true"> <bm-polyline
-            :path="paths" strokeColor="#908eff" :strokeWeight="3" :strokeOpacity="0.8" />
-        <bm-marker v-for="(station, index) in subwayStation" :key="index"
-            :position="{ lng: station.lng, lat: station.lat }"
-            :icon="{ url: stationIcon, size: { width: 20, height: 20 } }" :title="station.name"
-            @click="onClick(station)" @mouseover="mouseover(station.name)"></bm-marker>
-
-        <!-- 点击站点显示信息 -->
-        <bm-info-window :position="{ lat: currentPosition.lat, lng: currentPosition.lng }" :title="currentPosition.name"
-            :show="show" @close="infoWinClose" @open="infoWinOpen">
-            <p>{{ content }}</p>
-        </bm-info-window>
-    </baidu-map>
-    <Header />
-    <div class="content">
-        <RouterView />
+    <div class="map-container">
+        <baidu-map class="bm-view" :zoom="12" :mapStyle="mapStyle"
+            :center="{ lat: 24.93685520002406, lng: 102.72960724248914 }" :scroll-wheel-zoom="true">
+            <bm-polyline :path="paths" strokeColor="#908eff" :strokeWeight="3" :strokeOpacity="0.8" />
+            <bm-marker v-for="(station, index) in subwayStation" :key="index"
+                :position="{ lng: station.lng, lat: station.lat }"
+                :icon="{ url: stationIcon, size: { width: 20, height: 20 } }" :title="station.name"
+                @click="onClick(station.name)" @mouseover="mouseover(station.name)"></bm-marker>
+        </baidu-map>
     </div>
-    <!-- </div> -->
 </template>
 
 <script setup lang='ts'>
-// import { ref, reactive } from 'vue'
-import Header from './components/Header.vue';
-import { mapStyle } from '../config/map_style';
-import stationIcon from '../assets/icons/circle.svg'
-import { reactive, ref } from 'vue';
-
-
-interface Station {
-    lat: number
-    lng: number
-    name: string
-}
+import { ref } from 'vue'
+import { mapStyle } from '../../../config/map_style';
+import stationIcon from '../../../assets/icons/circle.svg'
 
 // 站点列表
 const subwayStation = ref([
@@ -149,59 +130,30 @@ const subwayStation = ref([
     }
 ])
 
-// 站点坐标列表
+// 站点坐标
 const paths = subwayStation.value.map(station => ({ lng: station.lng, lat: station.lat }))
 
-// 当前站点坐标
-const currentPosition = reactive<Station>({
-    lat: 0,
-    lng: 0,
-    name: ''
-})
-
 // 鼠标点击站点
-const onClick = (station: Station) => {
-    infoWinOpen()
-    currentPosition.lat = station.lat
-    currentPosition.lng = station.lng
-    currentPosition.name = station.name
+const onClick = (title: string) => {
+    console.log(`click ${title}`)
 }
 
 const mouseover = (title: string) => {
-    // console.log(`mouseover ${title}`)
-    return
-}
-
-const show = ref(false)
-
-// infoWindow content
-const content = ref('hhhhh')
-
-const infoWinClose = () => {
-    show.value = false
-}
-
-const infoWinOpen = () => {
-    show.value = true
+    console.log(`mouseover ${title}`)
 }
 </script>
 
 <style scoped lang='scss'>
-.layout-container {
-    height: 100%;
-    // background-color: #fff;
+.map-container {
+    height: 785px;
+    margin-bottom: 18px;
+    background: rgba(22, 92, 255, 0.2);
+    // border: 1px solid #0E9CFF;
+    box-shadow: inset 0px 0px 87px 0px rgba(1, 194, 255, 0.4);
 }
 
 .bm-view {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-}
-
-.content {
-    //height: 100%;
+    width: 100%;
+    height: 100%;
 }
 </style>

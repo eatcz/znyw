@@ -1,6 +1,6 @@
 <template>
     <div class="sidebar">
-        <el-input placeholder="请输入部门名称"></el-input>
+        <el-input placeholder="请输入部门名称" v-model="keyword"></el-input>
         <el-tree style="max-width: 600px" :data="data" :props="defaultProps" @node-click="handleNodeClick" />
     </div>
 </template>
@@ -13,12 +13,12 @@ const { path } = useRoute();
 const router = useRouter();
 
 onMounted(() => {
-    nextTick(() => {
-        // 只在当前路径不是 /system 时，跳转到 /system
-        if (path !== '/system') {
-            router.replace(`/system`);
-        }
-    });
+    // nextTick(() => {
+    //     // 只在当前路径不是 /system 时，跳转到 /system
+    //     if (path !== '/system') {
+    //         router.replace(`/system`);
+    //     }
+    // });
 });
 
 interface Tree {
@@ -26,6 +26,9 @@ interface Tree {
     children?: Tree[];
     path?: string;
 }
+
+// keyword
+const keyword = ref('')
 
 const handleNodeClick = (data: Tree) => {
     if (data.path) {
@@ -61,6 +64,7 @@ const defaultProps = {
 
 <style scoped lang='scss'>
 .sidebar {
+    // position: absolute;
     min-width: 450px;
     // height: calc(100% - 74px);
     margin-right: 13px;
@@ -87,6 +91,7 @@ const defaultProps = {
 
 :deep(.el-input__inner) {
     height: 32px;
+    color: #fff;
 }
 
 :deep(.el-icon svg) {

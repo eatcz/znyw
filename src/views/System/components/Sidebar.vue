@@ -13,12 +13,12 @@ const { path } = useRoute();
 const router = useRouter();
 
 onMounted(() => {
-    nextTick(() => {
-        // 只在当前路径不是 /system 时，跳转到 /system
-        if (path !== '/system') {
-            router.replace(`/system`);
-        }
-    });
+    // nextTick(() => {
+    //     // 只在当前路径不是 /system 时，跳转到 /system
+    //     if (path !== '/system') {
+    //         router.replace(`/system`);
+    //     }
+    // });
 });
 
 interface Tree {
@@ -64,6 +64,7 @@ const defaultProps = {
 
 <style scoped lang='scss'>
 .sidebar {
+    // position: absolute;
     min-width: 450px;
     // height: calc(100% - 74px);
     margin-right: 13px;

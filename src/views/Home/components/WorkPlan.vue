@@ -1,5 +1,6 @@
 <template>
-    <Card :width="440" :height="251" :top="485" :left="48" :isTitle="true">
+    <!-- <Card :width="440" :height="251" :top="485" :left="48" :isTitle="true"> -->
+    <Card :width="472" :height="180" :top="690" :left="48" :isTitle="true">
         <template #title>
             <h3 class="title">工作计划</h3>
         </template>
@@ -11,7 +12,7 @@
                 </div>
 
                 <!-- 一车间 -->
-                <div class="space" v-for="item in 3" :key="item">
+                <div class="space" v-for="item in 1" :key="item">
                     <div class="info flex">
                         <p class="title">一车间</p>
                         <div class="progress">

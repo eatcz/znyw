@@ -1,5 +1,6 @@
 <template>
-    <Card :width="426" :height="222" :top="48" :right="48" :isTitle="false">
+    <!-- <Card :width="426" :height="222" :top="48" :right="48" :isTitle="false"> -->
+    <Card :width="472" :height="222" :top="48" :right="48" :isTitle="false">
         <template #content>
             <div class="current-leader flex">
                 <div class="current flex">

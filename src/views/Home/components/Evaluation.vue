@@ -6,7 +6,8 @@
     </div> -->
 
     <!-- <Card :width="472" :height="196" :top="195" :left="48" :isTitle="true" color="#fff"> -->
-    <Card :width="472" :height="196" :top="340" :left="48" :isTitle="true" color="#fff">
+    <!-- <Card :width="472" :height="196" :top="340" :left="48" :isTitle="true" color="#fff"> -->
+    <Card :width="472" :height="166" :top="309" :left="48" :isTitle="true" color="#fff">
         <template #title>
             <h3 class="title">指标测评</h3>
         </template>
@@ -65,7 +66,8 @@ const percentageList = ref([
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     align-items: center;
-    padding-top: 26px;
+    // padding-top: 26px;
+    padding-top: 10px;
 
     .circle {
         position: absolute;

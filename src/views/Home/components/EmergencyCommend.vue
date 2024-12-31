@@ -1,7 +1,11 @@
 <template>
 
     <!-- <Card :width="752" :height="249" :top="340" :left="48" :isTitle="true" color="#fff"> -->
-    <Card :width="752" :height="249" :top="550" :left="48" :isTitle="true" color="#fff">
+    <!-- <Card :width="752" :height="249" :top="550" :left="48" :isTitle="true" color="#fff"> -->
+    <!-- <Card :width="752" :height="206" :top="480" :left="48" :isTitle="true" color="#fff"> -->
+    <!-- <Card :width="600" :height="206" :top="480" :left="48" :isTitle="true" color="#fff"> -->
+    <Card :width="472" :height="206" :top="480" :left="48" :isTitle="true" color="#fff">
+        <!-- <Card :width="473" :height="206" :top="480" :left="48" :isTitle="true" color="#fff"> -->
         <template #title>
             <div class="des flex">
                 <h3 class="title">应急指挥</h3>
@@ -17,7 +21,7 @@
         <template #content>
             <div class="task-wrap">
                 <div class="left">
-                    <div class="task-item" v-for="item in 5" :key="item">
+                    <div class="task-item" v-for="item in 4" :key="item">
                         <p class="info">调度中心确认紧急事件类别 (<span class="done">√</span>)</p>
                     </div>
                 </div>
@@ -33,7 +37,7 @@
 
                     <div class="list-wrapper">
                         <el-scrollbar style="height: 155px;">
-                            <div class="list" v-for="item in 4" :key="item">
+                            <div class="list" v-for="item in 2" :key="item">
                                 <p class="title">更换部件</p>
                                 <div class="info">
                                     <p class="handler">处理人:张</p>
@@ -138,14 +142,14 @@ import Card from '../../../components/Card.vue';
 
                 .title {
                     color: #fff;
-                    font-size: 12px;
+                    font-size: 14px;
                     margin-bottom: 8px;
                 }
 
                 .info {
                     display: flex;
                     justify-content: space-between;
-                    font-size: 12px;
+                    font-size: 14px;
                     color: rgba(255, 255, 255, 0.6);
                     padding-bottom: 5px;
                 }

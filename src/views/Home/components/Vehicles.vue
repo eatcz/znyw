@@ -74,7 +74,8 @@
 
         .item {
             width: 124px;
-            height: calc(70px + 4px + 24px);
+            // height: calc(70px + 4px + 24px);
+            height: calc(70px + 4px + 20px);
             padding-top: 20px;
             margin-bottom: 18px;
 
@@ -85,7 +86,8 @@
             }
 
             .item-top {
-                height: 70px;
+                // height: 70px;
+                height: 60px;
                 margin-bottom: 4px;
 
             }
@@ -105,7 +107,8 @@
         overflow-y: auto;
 
         .work {
-            height: 98px;
+            // height: 98px;
+            height: 80px;
 
             .title {
                 align-items: center;

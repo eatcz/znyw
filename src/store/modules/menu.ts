@@ -6,6 +6,11 @@ export interface State {
     isShowVehicles: boolean;
     isShowEvaluation: boolean;
     isShowEmergencyCommend: boolean;
+    isShowWorkProgress: boolean
+    isShowWorkPlan: boolean
+    isShowCurrentLeader: boolean
+    isShowFixedGuard: boolean
+    isShowCurrentLevel: boolean
     isShowBaseInfo: boolean, //是否显示项目基本信息
     isShowSituation: boolean, //是否显示项目情况
     isShowInformationSummary: boolean, //是否显示专业信息汇总
@@ -13,7 +18,7 @@ export interface State {
     isShowProductInfo: boolean, //是否显示生产信息汇总
     isShowSpecialCertificate: boolean, //是否显示特种证件统计
     isShowImportantInfo: boolean, //是否显示项目重要信息
-    currentShow:number | null | boolean
+    currentShow: number | null | boolean
 }
 
 export const useMenuStore = defineStore("system", {
@@ -22,7 +27,12 @@ export const useMenuStore = defineStore("system", {
         isShowRightMenu: true, // 是否显示右侧菜单
         isShowVehicles: true, //是否显示人、车、物
         isShowEvaluation: true, //是否显示指标测评
-        isShowEmergencyCommend: true, //是否显示指标测评
+        isShowEmergencyCommend: true, //是否显示应急指挥
+        isShowWorkProgress: true,//是否显示工作进度
+        isShowWorkPlan: true,//是否显示工作计划
+        isShowCurrentLeader: true,//是否显示当前领导
+        isShowFixedGuard: true,//是否显示固定值守点
+        isShowCurrentLevel: true,//是否显示当前值守等级
         isShowBaseInfo: true, //是否显示项目基本信息
         isShowSituation: true, //是否显示项目情况
         isShowInformationSummary: true, //是否显示专业信息汇总
@@ -57,10 +67,10 @@ export const useMenuStore = defineStore("system", {
         setSideMenuShow(index: number) {
             this.currentShow === index ? this.currentShow = null : this.currentShow = index
         },
-sidemenuShow(meta: keyof State) {
-    const state = this as State; // 显式指定 this 的类型
-    state[meta] = !state[meta]
-}
+        sidemenuShow(meta: keyof State) {
+            const state = this as State; // 显式指定 this 的类型
+            state[meta] = !state[meta]
+        }
 
 
 

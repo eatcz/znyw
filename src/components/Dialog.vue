@@ -2,7 +2,8 @@
     <div class="backdrop">
         <div class="dialog" :style="style">
             <header>
-                <slot name="title" />
+                <!-- <slot name="title" /> -->
+                <h3>{{ title }}</h3>
             </header>
 
             <div class="content">
@@ -20,14 +21,15 @@
 
 import { computed } from 'vue';
 
-const { width, height, color, top, left, right } = defineProps({
+const { width, height, color, top, left, right, title } = defineProps({
     width: Number,
     height: Number,
     color: String,
     top: Number,
     left: Number,
     right: Number,
-    isTitle: Boolean
+    isTitle: Boolean,
+    title: String
 })
 
 const style = computed(() => ({

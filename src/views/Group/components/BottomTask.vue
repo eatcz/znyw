@@ -17,10 +17,15 @@
 
 <style scoped lang='scss'>
 .task-wrapper {
+    position: fixed;
+    left: 472px;
+    bottom: 0;
     display: flex;
     justify-content: space-between;
     gap: 36px;
-    width: 100%;
+    // width: 100%;
+    width: calc(100% - 472px * 2 - 18px * 2 - 48px * 2);
+    margin-left: calc(17px + 48px);
     height: 84px;
     margin-bottom: 18px;
 

@@ -1,5 +1,8 @@
 <template>
-    <Card :width="685" :height="251" :top="632" :left="48" :isTitle="true">
+    <!-- <Card :width="685" :height="251" :top="632" :left="48" :isTitle="true"> -->
+    <!-- <Card :width="685" :height="220" :top="632" :left="48" :isTitle="true"> -->
+    <!-- <Card :width="685" :height="220" :top="685" :right="48" :isTitle="true"> -->
+    <Card :width="635" :height="220" :top="685" :right="48" :isTitle="true">
         <template #title>
             <h3 class="title">工作进度</h3>
         </template>
