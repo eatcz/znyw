@@ -45,95 +45,182 @@
                         <p> {{ scope.row.createTime }}</p>
                     </template>
                 </el-table-column>
+                <!-- <el-table-column prop="status" align="center" label="状态">
+                    <template #default="scope">
+                        <p> {{ scope.row.status }}</p>
+                    </template>
+                </el-table-column> -->
+                <!-- <el-table-column prop="certificate" align="center" label="证书">
+                    <template #default="scope">
+                        <p> {{ scope.row.certificate }}</p>
+                    </template>
+                </el-table-column> -->
                 <el-table-column align="center" label="操作">
                     <template #default="scope">
-                        <el-link :underline="false" type="primary" @click="handleShowDetail(scope.row)">查看详情</el-link>
+                        <el-link :underline="false" type="primary" @click="handleShowDetail">查看详情</el-link>
                         <el-link :underline="false" type="primary" style="margin: 0 15px;"
-                            @click="handleUpdateShow(scope.row)">修改</el-link>
-                        <el-link :underline="false" type="primary" @click="handleDelete(scope.row.id)">删除</el-link>
+                            @click="handleUpdate(scope.row.id)">修改</el-link>
+                        <el-link :underline="false" type="primary" @click="handleDelete">删除</el-link>
                     </template>
                 </el-table-column>
             </el-table>
             <div class="pagination">
-                <el-pagination background layout="prev, pager, next" :total="pages.total"
-                    @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+                <el-pagination background layout="prev, pager, next" :total="1000" />
             </div>
         </div>
     </div>
-    <Information ref="infoRef" />
 
-    <Form ref="formRef" />
+    <!-- <el-dialog v-model="dialogVisible" title="人员信息" width="766" :before-close="handleClose">
+        <div class="content-info">
+            <div class="info">
+                <div class="item">
+                    <p class="title">姓名: </p>
+                    <span>张XX</span>
+                </div>
+                <div class="item">
+                    <p class="title">联系方式: </p>
+                    <span>张XX</span>
+                </div>
+                <div class="item">
+                    <p class="title">在职状态: </p>
+                    <span class="status">职工</span>
+                </div>
+                <div class="item">
+                    <p class="title">职级:</p>
+                    <el-tag type="danger">高级</el-tag>
+                </div>
+                <div class="item">
+                    <p class="title">部门: </p>
+                    <span>张XX</span>
+                </div>
+                <div class="item">
+                    <p class="title">岗位名称: </p>
+                    <span>张XX</span>
+                </div>
+                <div class="item">
+                    <p class="title">XX调用: </p>
+                    <span>张XX</span>
+                </div>
+                <div class="item">
+                    <p class="title">XX到期: </p>
+                    <span>张XX</span>
+                </div>
+                <div class="item">
+                    <p class="title">证书: </p>
+                    <el-tag type="danger">高血压</el-tag>
+                </div>
+            </div>
+            <div class="avator">
+
+            </div>
+        </div>
+        <template #footer>
+            <div class="dialog-footer">
+                <el-button @click="dialogVisible = false">关闭</el-button>
+            </div>
+        </template>
+    </el-dialog> -->
+
+    <Dialog :width="766" :height="592" v-show="detaildialogVisible" title="人员信息">
+        <!-- <template #title>
+            <h3>人员信息</h3>
+        </template> -->
+        <template #content>
+            <Information />
+        </template>
+
+        <template #footer>
+            <div class="btn" @click="handleDetailClose">关闭</div>
+        </template>
+    </Dialog>
+
+    <Dialog :width="546" v-show="dialogVisible" :title="title">
+        <template #content>
+            <Form ref="formRef" />
+        </template>
+    </Dialog>
 </template>
 
 <script setup lang='ts'>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, provide, ref } from 'vue'
+import { nanoid } from 'nanoid'
 import { getImageUrl } from '../../utils'
-import { deleteUser, getUser } from '../../api/user'
+import { getUser } from '../../api/user'
+import Dialog from '../../components/Dialog.vue'
 import Form from './components/Form.vue'
 import { ElMessage, ElMessageBox, } from 'element-plus'
 import Information from './components/Information.vue'
+
+provide('dialog', {
+    handleClose: () => dialogVisible.value = false,
+    handleSubmit: () => console.log('submit')
+})
 
 onMounted(() => {
     getUserList()
 })
 
 const formRef = ref<null | any>(null)
-const infoRef = ref<null | any>(null)
+
+// 查看详情弹窗
+const detaildialogVisible = ref(false)
+
+// 新增/修改弹窗
+const dialogVisible = ref(false)
+
+const currentId = ref('')
+
+const title = computed(() => currentId.value === '' ? '新增人员' : '修改')
+
 
 
 // 用户列表
 
 const tableData = ref([])
-const pages = ref({
-    total: 0
-})
 
 const getUserList = async () => {
     const res = await getUser() as any
+    console.log(res)
     tableData.value = res.content
-    pages.value.total = res.totalElements
+    console.log(tableData.value)
 }
 
 
 // 新增
 const handleAdd = () => {
-    formRef.value.handleShow()
+    dialogVisible.value = true
 }
 
 // 查看详情
-const handleShowDetail = (row: any) => {
-    infoRef.value.handleShow(row)
+const handleShowDetail = () => {
+    detaildialogVisible.value = true
 }
 
 // 修改
-const handleUpdateShow = (row: any) => {
-    formRef.value.handleShow(row)
+const handleUpdate = (id: string | number) => {
+    currentId.value = '1'
+    dialogVisible.value = true
+    // console.log(`修改`)
+    formRef.value!.submitForm(id)
 }
 
-// 删除用户id数组
-const ids = ref<Array<string | number>>([])
-
 // 删除
-const handleDelete = (id: string | number) => {
+const handleDelete = () => {
     ElMessageBox.confirm('确定要删除吗?', '提示:', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
-    }).then(async () => {
-        if (id) {
-            ids.value.push(id)
-        }
-        const res = await deleteUser(ids.value)
-        console.log(res)
+    }).then(() => {
+        ElMessage({
+            type: 'success',
+            message: `删除成功!`
+        })
     })
 }
 
-// 分页
-const handleSizeChange = (val: number) => {
-    console.log(`${val} items per page`)
-}
-const handleCurrentChange = (val: number) => {
-    console.log(`current page: ${val}`)
+// 关闭弹窗
+const handleDetailClose = () => {
+    detaildialogVisible.value = false
 }
 
 const table_row_style = {

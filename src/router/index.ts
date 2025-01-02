@@ -13,6 +13,12 @@ const routes: Array<RouteRecordRaw> = [
                 name:'home',
                 component:() =>import('../views/Home/index.vue')
             },
+            // 用户中心
+            {
+                path: '/center',
+                name: 'center',
+                component:() =>import('../views/UserCenter/index.vue')
+            },
             // 系统管理
             {
                 path: '/system',

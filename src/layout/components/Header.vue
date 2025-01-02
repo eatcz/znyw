@@ -25,6 +25,9 @@
             </div>
 
             <HeaderMenu :menu-list="r_menu" />
+            <div class="avator">
+                <img :src="getImageUrl('usercenter')" alt="">
+            </div>
         </nav>
     </header>
 </template>
@@ -33,6 +36,7 @@
 import { nanoid } from 'nanoid';
 import { useRouter } from 'vue-router';
 import HeaderMenu from './HeaderMenu.vue';
+import { getImageUrl } from '../../utils';
 
 const router = useRouter()
 
@@ -95,6 +99,7 @@ const toHome = () => {
 header {
     color: #fff;
     margin-bottom: 10px;
+    padding: 0 20px;
 
     .navbar {
         display: flex;
@@ -162,5 +167,12 @@ header {
         // text-fill-color: transparent;
         opacity: 1;
     }
+}
+
+.avator {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>

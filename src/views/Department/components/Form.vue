@@ -72,7 +72,7 @@ const title = computed(() => form.value.id ? '修改' : '新增')
 const ruleFormRef = ref<FormInstance>()
 
 const form = ref<RuleForm>({
-    // id: '',
+    id: '',
     username: '',//用户名
     password: '', //密码
     nickName: '',//用户名
@@ -82,29 +82,24 @@ const form = ref<RuleForm>({
     enabled: true,//是否启用
     leader: false, //是否为领导
     dept: {
-        id: 2
-        // name: '', //部门名称
-        // pid: 0, //上级部门
+        name: '', //部门名称
+        pid: 0, //上级部门
     },
-    jobs: [{
-        id: 11,
+    jobs: {
         name: '',
-        // enabled: false,
-        // jobSort: 0
-    }],
-    roles: [
-        {
-            id: 3,
-            dataScope: '',
-            description: '',
-            // level: 0
-        }
-    ]
+        enabled: false,
+        jobSort: 0
+    },
+    roles: {
+        dataScope: '',
+        description: '',
+        level: 0
+    }
 })
 
 // 显示弹窗
 const handleShow = (row: any) => {
-    // resetForm()
+    resetForm()
     if (row) {
         form.value = { ...row }
     }
@@ -123,8 +118,6 @@ const handleSubmit = () => {
             if (!form.value.id) {
                 const res = await addUser(form.value)
                 console.log(res)
-                resetForm()
-                dialogVisible.value = false
             } else {
                 const res = await updateUser(form.value)
                 console.log(res)
@@ -137,7 +130,7 @@ const handleSubmit = () => {
 // 重置form
 const resetForm = () => {
     form.value = {
-        // id: '',
+        id: '',
         username: '',//用户名
         password: '', //密码
         nickName: '',//用户名
@@ -147,22 +140,19 @@ const resetForm = () => {
         enabled: true,//是否启用
         leader: false, //是否为领导
         dept: {
-            // name: '', //部门名称
-            // pid: 0, //上级部门
+            name: '', //部门名称
+            pid: 0, //上级部门
         },
-        jobs: [{
+        jobs: {
             name: '',
-            // enabled: false,
-            // jobSort: 0
-        }],
-        roles: [
-            {
-                id: 3,
-                dataScope: '',
-                description: '',
-                // level: 0
-            }
-        ]
+            enabled: false,
+            jobSort: 0
+        },
+        roles: {
+            dataScope: '',
+            description: '',
+            level: 0
+        }
     }
 }
 

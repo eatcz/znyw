@@ -48,10 +48,10 @@ const data: Tree[] = [
         label: '用户管理',
         path: '/system/user'
     },
-    // {
-    //     label: '部门管理',
-    //     path: '/system/department'
-    // },
+    {
+        label: '部门管理',
+        path: '/system/department'
+    },
 ]
 
 const defaultProps = {
