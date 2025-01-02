@@ -4,21 +4,41 @@
             <div class="content-info">
                 <div class="info">
                     <div class="item">
-                        <p class="title">姓名: </p>
+                        <p class="title">昵称: </p>
                         <span>{{ infoData!.nickName }}</span>
+                    </div>
+                    <div class="item">
+                        <p class="title">用户名: </p>
+                        <span>{{ infoData!.username }}</span>
+                    </div>
+                    <div class="item">
+                        <p class="title">性别: </p>
+                        <span>{{ infoData!.gender }}</span>
                     </div>
                     <div class="item">
                         <p class="title">联系方式: </p>
                         <span>{{ infoData!.phone }}</span>
                     </div>
                     <div class="item">
+                        <p class="title">邮箱: </p>
+                        <span>{{ infoData!.email }}</span>
+                    </div>
+                    <div class="item">
                         <p class="title">在职状态: </p>
                         <span class="status">{{ infoData!.enabled ? '在职' : '离职' }}</span>
                     </div>
                     <!-- <div class="item">
+                        <p class="title">是否为领导: </p>
+                        <span class="status">{{ infoData!.leader ? '是' : '否' }}</span>
+                    </div> -->
+                    <!-- <div class="item">
                         <p class="title">职级:</p>
                         <el-tag type="danger">高级</el-tag>
                     </div> -->
+                    <div class="item">
+                        <p class="title">部门: </p>
+                        <span>{{ infoData!.dept.name }}</span>
+                    </div>
                     <div class="item">
                         <p class="title">部门: </p>
                         <span>{{ infoData!.dept.name }}</span>

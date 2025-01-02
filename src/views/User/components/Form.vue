@@ -45,12 +45,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
-import type { FormInstance } from 'element-plus'
+import { ref, computed, inject } from 'vue'
+import { ElMessage, type FormInstance } from 'element-plus'
 import { GENDER } from '../../../config'
 import { addUser, updateUser } from '../../../api/user'
 import type { RuleForm, } from '../types'
 
+// const getUserList = inject('getUserList')
+
+const emit = defineEmits(['getUserList'])
 
 const dialogVisible = ref(false)
 
@@ -122,16 +125,30 @@ const handleSubmit = () => {
         if (valid) {
             if (!form.value.id) {
                 const res = await addUser(form.value)
-                console.log(res)
+                // if (res) {
+                ElMessage({
+                    message: '添加成功',
+                    type: 'success'
+                })
+                emit('getUserList')
                 resetForm()
                 dialogVisible.value = false
+                // }
+
             } else {
                 const res = await updateUser(form.value)
-                console.log(res)
+                ElMessage({
+                    message: '修改成功',
+                    type: 'success'
+                })
+                emit('getUserList')
+                resetForm()
+                dialogVisible.value = false
             }
 
         }
     })
+
 }
 
 // 重置form

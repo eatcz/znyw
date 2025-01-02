@@ -20,6 +20,7 @@ a{
 .el-table{
      --el-table-bg-color:transparent !important;
      --el-table-row-hover-bg-color:#071c53 !important;
+     --el-table-border-color:transparent !important;
 }
 
 .el-dialog{

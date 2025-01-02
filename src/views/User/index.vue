@@ -62,16 +62,18 @@
     </div>
     <Information ref="infoRef" />
 
-    <Form ref="formRef" />
+    <Form ref="formRef" @getUserList="getUserList" />
 </template>
 
 <script setup lang='ts'>
-import { onMounted, ref } from 'vue'
+import { onMounted, provide, ref } from 'vue'
 import { getImageUrl } from '../../utils'
 import { deleteUser, getUser } from '../../api/user'
 import Form from './components/Form.vue'
 import { ElMessage, ElMessageBox, } from 'element-plus'
 import Information from './components/Information.vue'
+
+
 
 onMounted(() => {
     getUserList()
@@ -94,6 +96,7 @@ const getUserList = async () => {
     pages.value.total = res.totalElements
 }
 
+// provide('getUserList', getUserList)
 
 // 新增
 const handleAdd = () => {
@@ -125,6 +128,16 @@ const handleDelete = (id: string | number) => {
         }
         const res = await deleteUser(ids.value)
         console.log(res)
+        ElMessage({
+            type: 'success',
+            message: '删除成功'
+        })
+        await getUserList()
+    }).catch(err => {
+        ElMessage({
+            type: 'warning',
+            message: err
+        })
     })
 }
 
