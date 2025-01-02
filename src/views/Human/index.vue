@@ -67,9 +67,6 @@
 
 
     <Dialog :width="766" :height="592" v-show="detaildialogVisible" title="人员信息">
-        <!-- <template #title>
-            <h3>人员信息</h3>
-        </template> -->
         <template #content>
             <Information />
         </template>
@@ -80,9 +77,6 @@
     </Dialog>
 
     <Dialog :width="546" v-show="dialogVisible" :title="title">
-        <!-- <template #title>
-            <h3>新增人员</h3>
-        </template> -->
 
         <template #content>
             <Form ref="formRef" />
@@ -92,7 +86,6 @@
 
 <script setup lang='ts'>
 import { computed, onMounted, provide, ref } from 'vue'
-import { nanoid } from 'nanoid'
 import { getImageUrl } from '../../utils'
 import { getUser } from '../../api/user'
 import Dialog from '../../components/Dialog.vue'

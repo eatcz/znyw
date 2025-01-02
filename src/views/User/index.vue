@@ -156,7 +156,7 @@ provide('dialog', {
 })
 
 onMounted(() => {
-    // getUserList()
+    getUserList()
 })
 
 const formRef = ref(null)

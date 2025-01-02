@@ -1,7 +1,7 @@
 <template>
     <div class="sidebar">
-        <el-input placeholder="请输入部门名称" v-model="keyword"></el-input>
-        <el-tree style="max-width: 600px" :data="data" :props="defaultProps" @node-click="handleNodeClick" />
+        <!-- <el-input placeholder="请输入部门名称" v-model="keyword"></el-input>
+        <el-tree style="max-width: 600px" :data="data" :props="defaultProps" @node-click="handleNodeClick" /> -->
     </div>
 </template>
 
