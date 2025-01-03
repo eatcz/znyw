@@ -30,7 +30,11 @@ import { onMounted, reactive, ref } from 'vue'
 import { loginFormRules } from '../../../config/rules';
 import { code, login } from '../../../api/login';
 import { setToken } from '../../../utils';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '../../../store/modules/user';
+const router = useRouter()
 
+const userStore = useUserStore()
 
 onMounted(() => {
     getCode()
@@ -59,8 +63,9 @@ const toLogin = async () => {
     // const res = await login(form)
     // console.log(res)
     if (form.username == 'eatcz' && form.password == 123456) {
-        alert('登录成功')
         setToken('123465')
+        userStore.getMenuList()
+        router.push('/')
     }
 }
 </script>
