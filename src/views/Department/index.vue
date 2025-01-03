@@ -16,30 +16,14 @@
         </div>
 
         <div class="table-wrapper">
-            <el-table :data="tableData" style="width: 100%" :row-style="table_row_style"
+            <el-table :data="tableData" style="width: 100%" row-key="id" border lazy :load="load"
+                :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" :row-style="table_row_style"
                 :header-row-style="table_header_row_style">
-                <el-table-column prop="username" label="用户名" align="center" width="180">
+                <el-table-column prop="name" label="名称" align="center">
                 </el-table-column>
-                <el-table-column prop="nickName" label="昵称" align="center" width="180">
-                    <template #default="scope">
-                        <p style="color: #67C23A;">{{ scope.row.nickName }}</p>
-                    </template>
+                <el-table-column prop="deptSort" label="排序" align="center">
                 </el-table-column>
-                <el-table-column prop="leader" align="center" label="职级">
-                    <template #default="scope">
-                        <el-tag type="success">{{ scope.row.leader ? '领导' : '非领导' }}</el-tag>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="phone" align="center" label="联系方式">
-                    <template #default="scope">
-                        <p>{{ scope.row.phone }}</p>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="dept" align="center" label="部门">
-                    <template #default="scope">
-                        <p> {{ scope.row.dept.name }}</p>
-                    </template>
-                </el-table-column>
+
                 <el-table-column prop="createTime" align="center" label="创建时间">
                     <template #default="scope">
                         <p> {{ scope.row.createTime }}</p>
@@ -47,63 +31,77 @@
                 </el-table-column>
                 <el-table-column align="center" label="操作">
                     <template #default="scope">
-                        <el-link :underline="false" type="primary" @click="handleShowDetail(scope.row)">查看详情</el-link>
+                        <el-link :underline="false" type="primary" @click="handleAddSub(scope.row)">添加部门</el-link>
                         <el-link :underline="false" type="primary" style="margin: 0 15px;"
                             @click="handleUpdateShow(scope.row)">修改</el-link>
-                        <el-link :underline="false" type="primary" @click="handleDelete(scope.row.id)">删除</el-link>
+                        <el-link :underline="false" type="primary"
+                            @click="handleDelete(scope.row.id, scope.row.pid)">删除</el-link>
                     </template>
                 </el-table-column>
             </el-table>
-            <div class="pagination">
-                <el-pagination background layout="prev, pager, next" :total="pages.total"
-                    @size-change="handleSizeChange" @current-change="handleCurrentChange" />
-            </div>
+            <!-- <el-tree style="max-width: 600px" :props="props" :load="loadNode" lazy show-checkbox>
+
+                <template #default="{ node, data }">
+                    <span class="custom-tree-node">
+                        <span>{{ node.label }}</span>
+                        <span class="fn">
+                            <a @click="append(data)"> 添加部门 </a>
+                            <a style="margin-left: 8px" @click="remove(node, data)"> 删除部门 </a>
+                        </span>
+                    </span>
+                </template> </el-tree> -->
         </div>
     </div>
-    <Information ref="infoRef" />
 
-    <Form ref="formRef" />
+    <Form ref="formRef" @getDepList="getDepList" @load="load" />
+
 </template>
 
 <script setup lang='ts'>
 import { onMounted, ref } from 'vue'
 import { getImageUrl } from '../../utils'
-import { getDepartment } from '../../api/department'
+import { getDepartment, getSubDep, deleteDepartment } from '../../api/department'
 import Form from './components/Form.vue'
 import { ElMessage, ElMessageBox, } from 'element-plus'
-import Information from './components/Information.vue'
 
-onMounted(() => {
-    getDepartmentList()
+interface User {
+    id: number
+    name: string
+    deptSot: string
+    hasChildren?: boolean
+    children?: User[]
+}
+
+onMounted(async () => {
+
+    await getDepList()
 })
 
 const formRef = ref<null | any>(null)
-const infoRef = ref<null | any>(null)
 
+// 懒加载数据
 
-// 用户列表
-
-const tableData = ref([])
-const pages = ref({
-    total: 0
-})
-
-const getDepartmentList = async () => {
-    const res = await getDepartment() as any
-    console.log(res)
-    tableData.value = res.content
-    pages.value.total = res.totalElements
+const load = async (row: User, treeNode: unknown, resolve: (data: User[]) => void) => {
+    const res = await getSubDep(row.id) as any
+    resolve(res.content)
 }
 
+const tableData = ref<any>([])
+
+const getDepList = async () => {
+    const res = await getDepartment() as any
+    tableData.value = res.content
+}
 
 // 新增
 const handleAdd = () => {
     formRef.value.handleShow()
 }
 
-// 查看详情
-const handleShowDetail = (row: any) => {
-    infoRef.value.handleShow(row)
+// 新增子部门
+const handleAddSub = (row: any) => {
+    const pid = row.id
+    formRef.value.handleShow({ pid })
 }
 
 // 修改
@@ -115,7 +113,7 @@ const handleUpdateShow = (row: any) => {
 const ids = ref<Array<string | number>>([])
 
 // 删除
-const handleDelete = (id: string | number) => {
+const handleDelete = (id: string | number, pid: number) => {
     ElMessageBox.confirm('确定要删除吗?', '提示:', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -124,17 +122,16 @@ const handleDelete = (id: string | number) => {
         if (id) {
             ids.value.push(id)
         }
-        // const res = await deleteUser(ids.value)
-        // console.log(res)
+        const res = await deleteDepartment(ids.value)
+        console.log(res)
+        ElMessage({
+            type: 'success',
+            message: '删除成功'
+        })
+        // await getDepList()
+        location.reload()
+        // await getUserList()
     })
-}
-
-// 分页
-const handleSizeChange = (val: number) => {
-    console.log(`${val} items per page`)
-}
-const handleCurrentChange = (val: number) => {
-    console.log(`current page: ${val}`)
 }
 
 const table_row_style = {
@@ -213,6 +210,21 @@ const table_header_row_style = {
 
 .table-row-bg {
     background-color: #000;
+}
+
+.custom-tree-node {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    padding-right: 8px;
+
+    .fn {
+        a {
+            color: #0e9cff;
+        }
+    }
 }
 </style>
 

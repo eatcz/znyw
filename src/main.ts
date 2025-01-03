@@ -12,7 +12,7 @@ import router from './router'
 import store from './store'
 
 import registerIcon from './plugin/directive'
-
+import './utils/premission'
 
 
 const app = createApp(App)

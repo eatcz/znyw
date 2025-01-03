@@ -29,14 +29,16 @@
 import { onMounted, reactive, ref } from 'vue'
 import { loginFormRules } from '../../../config/rules';
 import { code, login } from '../../../api/login';
+import { setToken } from '../../../utils';
+
 
 onMounted(() => {
     getCode()
 })
 
 let form = reactive<any>({
-    username: import.meta.env.VITE_APP_LOGIN_ACCOUNT,
-    password: import.meta.env.VITE_APP_LOGIN_PASSWORD,
+    username: import.meta.env.VITE_USERNAME,
+    password: import.meta.env.VITE_PASSWORD,
     code: import.meta.env.VITE_APP_LOGIN_VERIFICATION_CODE,
     uuid: ''
 })
@@ -53,9 +55,13 @@ const getCode = async () => {
 }
 
 const toLogin = async () => {
-    console.log(form)
-    const res = await login(form)
-    console.log(res)
+    // console.log(form)
+    // const res = await login(form)
+    // console.log(res)
+    if (form.username == 'eatcz' && form.password == 123456) {
+        alert('登录成功')
+        setToken('123465')
+    }
 }
 </script>
 

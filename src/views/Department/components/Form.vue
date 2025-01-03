@@ -4,32 +4,17 @@
             <template #content>
                 <el-form ref="ruleFormRef" style="max-width: 600px" :model="form" status-icon label-width="auto"
                     class="demo-ruleForm">
-                    <el-form-item label="用户名" prop="username">
-                        <el-input v-model="form.username" type="text" autocomplete="off" placeholder="请输入用户名" />
+                    <el-form-item label="名称" prop="name">
+                        <el-input v-model="form.name" type="text" autocomplete="off" placeholder="请输入名称" />
                     </el-form-item>
-                    <el-form-item label="昵称" prop="nickname">
-                        <el-input v-model="form.nickName" type="text" autocomplete="off" placeholder="请输入昵称" />
+                    <el-form-item label="排序" prop="deptSort">
+                        <el-input-number v-model="form.deptSort" :min="0" :max="100" />
                     </el-form-item>
-                    <el-form-item label="密码" prop="password">
-                        <el-input v-model="form.password" type="text" autocomplete="off" placeholder="请输入密码" />
-                    </el-form-item>
-                    <el-form-item label="性别" prop="gender">
-                        <el-select placeholder="请选择" v-model="form.gender">
-                            <el-option v-for="item in GENDER" :key="item.id" :value="item.label" />
+                    <!-- <el-form-item label="部门" prop="pid">
+                        <el-select placeholder="请选择" v-model="form.pid">
+                            <el-option v-for="item in depList" :key="item.id" :label="item.label" :value="item.id" />
                         </el-select>
-                    </el-form-item>
-                    <el-form-item label="联系方式" prop="phone">
-                        <el-input v-model="form.phone" type="text" autocomplete="off" placeholder="请输入联系方式" />
-                    </el-form-item>
-                    <el-form-item label="邮箱" prop="email">
-                        <el-input v-model="form.email" type="text" autocomplete="off" placeholder="请输入邮箱" />
-                    </el-form-item>
-                    <el-form-item label="是否启用" prop="email">
-                        <el-switch v-model="form.enabled" />
-                    </el-form-item>
-                    <el-form-item label="是否为领导" prop="email">
-                        <el-switch v-model="form.leader" />
-                    </el-form-item>
+                    </el-form-item> -->
                     <el-form-item>
                         <div class="btns">
                             <el-button type="primary" @click="handleSubmit">
@@ -46,62 +31,38 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import type { FormInstance } from 'element-plus'
-import { GENDER } from '../../../config'
-import { addUser, updateUser } from '../../../api/user'
+import { ElMessage, type FormInstance } from 'element-plus'
+import { addDepartment, updateDepartment } from '../../../api/department'
 import type { RuleForm, } from '../types'
 
+
+const emit = defineEmits(['getDepList', 'load'])
 
 const dialogVisible = ref(false)
 
 const title = computed(() => form.value.id ? '修改' : '新增')
 
-
-// interface RuleForm {
-//     id?: number | string
-//     username: string
-//     password: string
-//     nickName: string
-//     gender: string
-//     phone: string | number
-//     email: string
-//     enabled: boolean
-//     leader: boolean
-// }
-
 const ruleFormRef = ref<FormInstance>()
 
 const form = ref<RuleForm>({
-    id: '',
-    username: '',//用户名
-    password: '', //密码
-    nickName: '',//用户名
-    gender: '', //性别
-    phone: '',//手机号
-    email: '', //邮箱
-    enabled: true,//是否启用
-    leader: false, //是否为领导
-    dept: {
-        name: '', //部门名称
-        pid: 0, //上级部门
-    },
-    jobs: {
-        name: '',
-        enabled: false,
-        jobSort: 0
-    },
-    roles: {
-        dataScope: '',
-        description: '',
-        level: 0
-    }
+    name: '',
+    pid: 0,
+    "deptSort": 0,
+    "enabled": true,
+    "roles": [
+        {
+            "dataScope": "",
+            "description": "",
+            "level": 0
+        }
+    ]
 })
 
 // 显示弹窗
 const handleShow = (row: any) => {
     resetForm()
     if (row) {
-        form.value = { ...row }
+        form.value = { ...form.value, ...row }
     }
     dialogVisible.value = true
 }
@@ -116,11 +77,28 @@ const handleSubmit = () => {
     ruleFormRef.value!.validate(async (valid) => {
         if (valid) {
             if (!form.value.id) {
-                const res = await addUser(form.value)
+                const res = await addDepartment(form.value)
                 console.log(res)
+                ElMessage({
+                    message: '添加成功',
+                    type: 'success'
+                })
+                emit('getDepList')
+                emit('load')
+                resetForm()
+                dialogVisible.value = false
             } else {
-                const res = await updateUser(form.value)
-                console.log(res)
+                const res = await updateDepartment(form.value)
+                // console.log(res)
+                ElMessage({
+                    message: '修改成功',
+                    type: 'success'
+                })
+                emit('getDepList')
+                emit('load')
+
+                resetForm()
+                dialogVisible.value = false
             }
 
         }
@@ -130,31 +108,20 @@ const handleSubmit = () => {
 // 重置form
 const resetForm = () => {
     form.value = {
-        id: '',
-        username: '',//用户名
-        password: '', //密码
-        nickName: '',//用户名
-        gender: '', //性别
-        phone: '',//手机号
-        email: '', //邮箱
-        enabled: true,//是否启用
-        leader: false, //是否为领导
-        dept: {
-            name: '', //部门名称
-            pid: 0, //上级部门
-        },
-        jobs: {
-            name: '',
-            enabled: false,
-            jobSort: 0
-        },
-        roles: {
-            dataScope: '',
-            description: '',
-            level: 0
-        }
+        name: '',
+        pid: '',
+        "deptSort": 0,
+        "enabled": true,
+        "roles": [
+            {
+                "dataScope": "",
+                "description": "",
+                "level": 0
+            }
+        ]
     }
 }
+
 
 defineExpose({
     handleShow,

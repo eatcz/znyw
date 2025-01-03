@@ -12,7 +12,7 @@ export const code = ():Promise<Code> => request({
 })
 
 // 登录
-export const login = (data:Login) => request({
+export const login = (data:Login):Promise<string> => request({
     url: '/auth/login',
     method: 'POST',
     headers: {

@@ -1,9 +1,18 @@
-import request from "../utils/request";
+import request from "../utils/request2";
 
 // 查询
 export const getDepartment = () => request({
     url: `/api/dept`,
     method: 'GET',
+    headers: {
+        "Content-Type":'application/x-www-form-urlencoded'
+    }
+})
+
+// 查询子部门
+export const getSubDep = (pid:number) => request({
+    url: `/api/dept?pid=${pid} `,
+     method: 'GET',
     headers: {
         "Content-Type":'application/x-www-form-urlencoded'
     }
