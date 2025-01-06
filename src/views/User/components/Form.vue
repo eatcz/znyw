@@ -24,6 +24,11 @@
                     <el-form-item label="邮箱" prop="email">
                         <el-input v-model="form.email" type="text" autocomplete="off" placeholder="请输入邮箱" />
                     </el-form-item>
+                    <el-form-item label="部门" prop="dept">
+                        <el-select placeholder="请选择" v-model="form.dept.id">
+                            <el-option v-for="item in GENDER" :key="item.id" :value="item.label" />
+                        </el-select>
+                    </el-form-item>
                     <el-form-item label="是否启用" prop="email">
                         <el-switch v-model="form.enabled" />
                     </el-form-item>
@@ -45,11 +50,16 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, inject } from 'vue'
+import { ref, computed, inject, onMounted } from 'vue'
 import { ElMessage, type FormInstance } from 'element-plus'
 import { GENDER } from '../../../config'
 import { addUser, updateUser } from '../../../api/user'
+import { getDepartment } from '../../../api/department'
 import type { RuleForm, } from '../types'
+
+onMounted(() => {
+    getDepartmentList()
+})
 
 // const getUserList = inject('getUserList')
 
@@ -149,6 +159,13 @@ const handleSubmit = () => {
         }
     })
 
+}
+
+const department = ref([])
+
+const getDepartmentList = async () => {
+    const res = await getDepartment() as any
+    department.value = res.content
 }
 
 // 重置form
